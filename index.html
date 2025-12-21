@@ -3,15 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <title>ZyCredit</title>
 
 <style>
 :root{
-  --primary:#d81b7d;
-  --secondary:#8e1d6b;
   --bg:#0a0a0d;
   --card:#14141a;
+  --primary:#d81b7d;
+  --secondary:#8e1d6b;
+  --text:#ffffff;
+  --muted:#aaaaaa;
 }
 
 *{box-sizing:border-box}
@@ -19,65 +20,49 @@
 html,body{
   margin:0;
   padding:0;
-  font-family:"Segoe UI",Roboto,"Noto Sans Sinhala",Arial,sans-serif;
+  font-family:"Segoe UI","Noto Sans Sinhala",Arial,sans-serif;
   background:var(--bg);
-  color:#fff;
+  color:var(--text);
 }
 
-/* ================= APP ================= */
+/* ===== APP WRAPPER ===== */
 .app{
-  min-height:100vh;
-  display:flex;
-  flex-direction:column;
   max-width:420px;
   margin:auto;
+  min-height:100vh;
 }
 
-/* ================= TOP BAR ================= */
+/* ===== TOP BAR ===== */
 .topbar{
   display:flex;
   justify-content:space-between;
   align-items:center;
   padding:14px 16px;
-  background:#0a0a0d;
+  border-bottom:1px solid #1a1a1a;
   position:sticky;
   top:0;
-  z-index:100;
-  border-bottom:1px solid #1a1a1a;
+  background:var(--bg);
 }
 
 .brand{
-  display:flex;
-  gap:10px;
-  align-items:center;
-}
-
-.logo-img{
-  width:42px;
-  height:42px;
-  border-radius:10px;
-  background:#333;
-}
-
-.brand-text{
   font-weight:900;
-  font-size:16px;
+  font-size:18px;
 }
 
 .btn{
   background:#1f1f1f;
   color:#fff;
   border:none;
+  padding:8px 14px;
   border-radius:10px;
-  padding:10px 14px;
 }
 
-/* ================= CARD ================= */
+/* ===== MAIN CARD ===== */
 .card{
   background:var(--card);
-  padding:20px 16px;
-  border-radius:16px;
-  margin:12px;
+  margin:14px;
+  padding:20px;
+  border-radius:18px;
 }
 
 .headline{
@@ -88,188 +73,159 @@ html,body{
 
 .sub{
   text-align:center;
-  color:#bbb;
+  color:var(--muted);
   font-size:14px;
   margin:8px 0 14px;
 }
 
 .hero{
   background:linear-gradient(135deg,var(--primary),var(--secondary));
-  padding:18px;
+  padding:16px;
   border-radius:14px;
   text-align:center;
   font-weight:800;
   margin-bottom:16px;
 }
 
-/* ================= RANGE ================= */
+/* ===== RANGE ===== */
 .amount-display{
   display:flex;
   justify-content:space-between;
-  font-weight:800;
+  font-weight:700;
 }
 
 input[type=range]{
   width:100%;
   height:10px;
-  border-radius:10px;
   appearance:none;
   background:linear-gradient(135deg,var(--primary),var(--secondary));
+  border-radius:10px;
   margin:14px 0;
 }
 
 input[type=range]::-webkit-slider-thumb{
   appearance:none;
-  width:28px;
-  height:28px;
-  border-radius:50%;
+  width:26px;
+  height:26px;
   background:#fff;
-  border:6px solid var(--secondary);
+  border-radius:50%;
+  border:5px solid var(--secondary);
 }
 
 .minmax{
   display:flex;
   justify-content:space-between;
-  color:#aaa;
-  font-size:13px;
+  font-size:12px;
+  color:var(--muted);
 }
 
-/* ================= RESULTS ================= */
-.results{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
-  margin-top:16px;
-}
-
-.result-box{
-  background:#1a1a1a;
-  border-radius:14px;
-  padding:14px;
-}
-
-.r-label{font-size:12px;color:#aaa}
-.r-value{font-weight:900;font-size:16px}
-
-/* ================= APPLY BUTTON ================= */
-.apply-button{
-  width:100%;
+/* ===== APPLY BUTTON ===== */
+.apply-btn{
   display:block;
   text-align:center;
-  padding:18px;
   margin-top:18px;
-  border-radius:16px;
+  padding:16px;
   background:linear-gradient(135deg,var(--primary),var(--secondary));
+  border-radius:16px;
   color:#fff;
-  font-size:18px;
-  font-weight:900;
   text-decoration:none;
-  transition:.3s;
+  font-weight:900;
 }
 
-.apply-button:hover{
-  transform:translateY(-3px);
-}
-
-/* ================= STEPS ================= */
+/* ===== STEPS ===== */
 .steps{
-  background:#fff;
-  color:#000;
-  margin:12px;
-  border-radius:20px;
+  background:var(--card);
+  margin:14px;
+  border-radius:18px;
   overflow:hidden;
 }
 
 .step{
   display:flex;
-  gap:15px;
-  padding:22px;
+  gap:14px;
+  padding:18px;
 }
 
 .icon{
-  font-size:30px;
-  color:#1abc9c;
+  font-size:26px;
 }
 
-.step h3{margin:0;font-size:17px}
-.step p{margin-top:6px;font-size:14px;color:#777}
+.step h3{
+  margin:0;
+  font-size:16px;
+}
+
+.step p{
+  margin-top:6px;
+  font-size:14px;
+  color:var(--muted);
+}
 
 .divider{
+  border-top:1px dashed #333;
   text-align:center;
-  border-top:2px dashed #ddd;
 }
 
 .arrow{
-  background:#1abc9c;
-  color:#fff;
+  background:var(--primary);
   padding:6px 10px;
   border-radius:50%;
   position:relative;
   top:-14px;
-  font-size:12px;
 }
 
 .highlight{
-  background:#1abc9c;
+  background:linear-gradient(135deg,var(--primary),var(--secondary));
 }
 
-.highlight h3,
-.highlight p,
-.highlight .icon{
-  color:#fff;
-}
-
-/* ================= FOOTER ================= */
+/* ===== FOOTER ===== */
 footer{
-  background:#243765;
-  padding:40px 20px;
-  margin-top:20px;
+  background:#0f0f15;
+  padding:30px 20px;
 }
 
 .footer-item{
   display:flex;
   gap:14px;
-  margin-bottom:20px;
+  margin-bottom:18px;
 }
 
 .footer-icon{
   width:40px;
   height:40px;
-  background:#3b4f85;
+  background:#1f1f2a;
   border-radius:12px;
   display:flex;
   align-items:center;
   justify-content:center;
 }
 
-footer small{color:#cfd6ff}
-
-footer hr{
-  border:none;
-  border-top:1px solid rgba(255,255,255,.2);
-  margin:25px 0;
-}
-
 .footer-links{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:12px;
+  margin:20px 0;
 }
 
 .footer-links a{
   color:#fff;
   text-decoration:none;
+  font-size:14px;
 }
 
-/* ================= FLOATING ================= */
-.floating-contact{
+footer small{
+  color:var(--muted);
+  font-size:12px;
+}
+
+/* ===== FLOATING BUTTONS ===== */
+.floating{
   position:fixed;
   right:16px;
   bottom:20px;
   display:flex;
   flex-direction:column;
   gap:12px;
-  z-index:9999;
 }
 
 .float-btn{
@@ -283,22 +239,15 @@ footer hr{
   color:#fff;
   text-decoration:none;
   box-shadow:0 6px 18px rgba(0,0,0,.3);
-  animation:pulse 2s infinite;
 }
 
-.float-btn.call{background:#f1b400}
-.float-btn.whatsapp{background:#25D366}
-
-@keyframes pulse{
-  0%{transform:scale(1)}
-  50%{transform:scale(1.08)}
-  100%{transform:scale(1)}
-}
+.call{background:var(--primary)}
+.whatsapp{background:#25D366}
 
 @media(max-width:480px){
   body{padding-bottom:80px;}
   .footer-links{grid-template-columns:1fr;}
-  .floating-contact{bottom:90px;}
+  .floating{bottom:90px;}
 }
 </style>
 </head>
@@ -308,10 +257,7 @@ footer hr{
 <div class="app">
 
 <div class="topbar">
-  <div class="brand">
-    <div class="logo-img"></div>
-    <div class="brand-text">ZyCredit</div>
-  </div>
+  <div class="brand">ZyCredit</div>
   <button class="btn">Log in</button>
 </div>
 
@@ -329,7 +275,7 @@ footer hr{
   <input type="range" id="amountRange" min="30000" max="500000" step="10000" value="30000">
   <div class="minmax"><span>30,000</span><span>500,000</span></div>
 
-  <a href="#" class="apply-button">අයදුම් කරන්න</a>
+  <a href="#" class="apply-btn">අයදුම් කරන්න</a>
 </div>
 
 <div class="steps">
@@ -376,8 +322,6 @@ footer hr{
     <div><strong>info@zycredit.lk</strong></div>
   </div>
 
-  <hr>
-
   <div class="footer-links">
     <a href="#">How to apply</a>
     <a href="#">Repay loan</a>
@@ -385,16 +329,14 @@ footer hr{
     <a href="#">Contact</a>
   </div>
 
-  <hr>
-
   <small>© 2024–2025 ZyCredit Pvt Ltd</small>
 </footer>
 
 </div>
 
-<div class="floating-contact">
+<div class="floating">
   <a href="tel:0740436005" class="float-btn call">📞</a>
-  <a href="https://wa.me/94740436005" target="_blank" class="float-btn whatsapp">💬</a>
+  <a href="https://wa.me/94740436005" class="float-btn whatsapp">💬</a>
 </div>
 
 <script>
