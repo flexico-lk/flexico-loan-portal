@@ -1,9 +1,9 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="si">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ZyCredit App</title>
+<title>ZyCredit Landing Page</title>
 
 <style>
 :root{
@@ -12,24 +12,16 @@
   --bg:#0a0a0d;
   --card:#14141a;
 }
-
-*{box-sizing:border-box}
-html,body{
+*{box-sizing:border-box;}
+body{
   margin:0;
   padding:0;
-  font-family:"Segoe UI",Roboto,"Noto Sans Sinhala",Arial,sans-serif;
+  font-family:'Noto Sans Sinhala',Arial,sans-serif;
   background:var(--bg);
   color:#fff;
-  scroll-behavior:smooth;
 }
 
-.app{
-  min-height:100vh;
-  display:flex;
-  flex-direction:column;
-}
-
-/* ================= TOP BAR ================= */
+/* ================= TOPBAR ================= */
 .topbar{
   display:flex;
   justify-content:space-between;
@@ -46,21 +38,10 @@ html,body{
   gap:10px;
   align-items:center;
 }
-.logo-img{
-  width:42px;
-  height:42px;
-  border-radius:10px;
-}
-.brand-text{
-  font-weight:900;
-  font-size:16px;
-}
+.logo-img{width:42px;height:42px;border-radius:10px;}
+.brand-text{font-weight:900;font-size:16px;}
 .btn{
-  background:#1f1f1f;
-  color:#fff;
-  border:none;
-  border-radius:10px;
-  padding:10px 14px;
+  background:#1f1f1f;color:#fff;border:none;border-radius:10px;padding:10px 14px;
 }
 
 /* ================= CARD ================= */
@@ -68,151 +49,68 @@ html,body{
   background:var(--card);
   padding:20px 16px;
   border-radius:16px;
+  max-width:420px;
+  margin:20px auto;
 }
-
-.headline{
-  text-align:center;
-  font-size:22px;
-  font-weight:900;
-}
-.sub{
-  text-align:center;
-  color:#bbb;
-  font-size:14px;
-  margin:8px 0 14px;
-}
+.headline{text-align:center;font-size:22px;font-weight:900;}
+.sub{text-align:center;color:#bbb;font-size:14px;margin:8px 0 14px;}
 .hero{
   background:linear-gradient(135deg,var(--primary),var(--secondary));
-  padding:18px;
-  border-radius:14px;
-  text-align:center;
-  font-weight:800;
-  margin-bottom:16px;
+  padding:18px;border-radius:14px;text-align:center;font-weight:800;margin-bottom:16px;
 }
+.amount-display{display:flex;justify-content:space-between;font-weight:800;}
+input[type=range]{width:100%;height:10px;border-radius:10px;appearance:none;background:linear-gradient(135deg,var(--primary),var(--secondary));margin:14px 0;}
+input[type=range]::-webkit-slider-thumb{appearance:none;width:28px;height:28px;border-radius:50%;background:#fff;border:6px solid var(--secondary);}
+.minmax{display:flex;justify-content:space-between;color:#aaa;font-size:13px;}
+.results{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px;}
+.result-box{background:#1a1a1a;border-radius:14px;padding:14px;}
+.r-label{font-size:12px;color:#aaa;}
+.r-value{font-weight:900;font-size:16px;}
+.apply-button{width:100%;display:block;text-align:center;padding:18px;margin-top:18px;border-radius:16px;background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;font-size:18px;font-weight:900;text-decoration:none;}
 
-/* ================= RANGE ================= */
-.amount-display{
-  display:flex;
-  justify-content:space-between;
-  font-weight:800;
-}
-input[type=range]{
-  width:100%;
-  height:10px;
-  border-radius:10px;
-  appearance:none;
-  background:linear-gradient(135deg,var(--primary),var(--secondary));
-  margin:14px 0;
-}
-input[type=range]::-webkit-slider-thumb{
-  appearance:none;
-  width:28px;
-  height:28px;
-  border-radius:50%;
-  background:#fff;
-  border:6px solid var(--secondary);
-}
-.minmax{
-  display:flex;
-  justify-content:space-between;
-  color:#aaa;
-  font-size:13px;
-}
-
-/* ================= RESULTS ================= */
-.results{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
-  margin-top:16px;
-}
-.result-box{
-  background:#1a1a1a;
-  border-radius:14px;
-  padding:14px;
-}
-.r-label{font-size:12px;color:#aaa}
-.r-value{font-weight:900;font-size:16px}
-
-/* ================= APPLY BUTTON ================= */
-.apply-button{
-  width:100%;
-  display:block;
-  text-align:center;
-  padding:18px;
-  margin-top:18px;
-  border-radius:16px;
-  background:linear-gradient(135deg,var(--primary),var(--secondary));
-  color:#fff;
-  font-size:18px;
-  font-weight:900;
-  text-decoration:none;
-}
-
-/* ================= SECTION ================= */
-.section{
-  padding:40px 16px;
-}
-
-/* ================= LOAN GUIDE (SECTION 01) ================= */
-.loan-guide{
+/* ================= LOAN STEPS ================= */
+.loan-steps{
   background:var(--card);
   border-radius:16px;
   padding:28px 18px;
+  max-width:420px;
+  margin:20px auto;
+}
+.loan-steps .step{
+  display:flex;
+  gap:15px;
+  padding:18px;
+  align-items:flex-start;
+  border-radius:12px;
+  margin-bottom:16px;
+  background:#1a1a1a;
+}
+.loan-steps .icon{
+  font-size:28px;
+  padding:10px;
+  border-radius:50%;
+  background:linear-gradient(135deg,#d81b7d,#8e1d6b);
+  color:#fff;
   text-align:center;
 }
-.hero-title{
-  font-size:22px;
-  font-weight:900;
-  margin-bottom:24px;
-}
-.step{
-  background:#1a1a1a;
-  border-radius:14px;
-  padding:18px;
-  margin-bottom:14px;
-}
-.step-number{
-  font-size:14px;
-  color:#ff7ac8;
-  margin:0;
-  font-weight:800;
-}
-.step-title{
-  font-size:16px;
-  margin:8px 0 4px;
-  font-weight:900;
-}
-.step-desc{
-  font-size:14px;
-  color:#bbb;
-}
-.image-container{
-  margin-top:20px;
-}
-.responsive-image{
-  width:100%;
-  border-radius:16px;
-}
+.loan-steps .text h3{margin:0;font-size:16px;font-weight:900;color:#fff;}
+.loan-steps .text p{margin-top:6px;font-size:13px;color:#bbb;}
+.loan-steps .divider{position:relative;text-align:center;border-top:2px dashed #333;margin:-8px 0 16px;}
+.loan-steps .arrow{background:#d81b7d;color:#fff;padding:4px 8px;border-radius:50%;position:relative;top:-12px;font-size:12px;}
+.loan-steps .highlight{background:linear-gradient(135deg,#d81b7d,#8e1d6b);}
+.loan-steps .highlight .text h3,.loan-steps .highlight .text p,.loan-steps .highlight .icon{color:#fff;}
 
-/* ================= APP FEATURES (SECTION 02) ================= */
+/* ================= APP FEATURES ================= */
 .app-features{
   background:var(--card);
   border-radius:16px;
   padding:28px 18px;
   text-align:center;
+  max-width:420px;
+  margin:20px auto;
 }
-.app-title{
-  font-size:20px;
-  font-weight:900;
-  margin-bottom:18px;
-}
-.feature-list{
-  list-style:none;
-  padding:0;
-  margin:0 0 20px;
-  text-align:left;
-}
+.app-title{font-size:20px;font-weight:900;margin-bottom:18px;}
+.feature-list{list-style:none;padding:0;margin:0 0 20px;text-align:left;}
 .feature-list li{
   background:#1a1a1a;
   padding:14px 16px;
@@ -221,91 +119,37 @@ input[type=range]::-webkit-slider-thumb{
   font-size:14px;
   font-weight:600;
 }
-.app-image img{
-  width:100%;
-  border-radius:16px;
-  margin:18px 0;
-}
-.google-btn{
-  display:inline-block;
-  background:#000;
-  color:#fff;
-  text-decoration:none;
-  padding:14px 22px;
-  border-radius:12px;
-  font-weight:800;
-  font-size:15px;
-}
+.app-image img{width:100%;border-radius:16px;margin:18px 0;}
+.google-btn{display:inline-block;background:#000;color:#fff;text-decoration:none;padding:14px 22px;border-radius:12px;font-weight:800;font-size:15px;}
 
-/* ================= ZYCREDIT FOOTER ================= */
-.zy-footer{
-  background:#22182a;
-  color:#fff;
-  padding:40px 20px;
-  font-family:'Noto Sans Sinhala',sans-serif;
-}
-.footer-wrap{
-  max-width:900px;
-  margin:auto;
-}
-.footer-contacts{
-  display:flex;
-  flex-wrap:wrap;
-  gap:30px;
-}
-.contact-item{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  min-width:220px;
-}
-.icon-green{
-  stroke:#22c18a;
-  fill:none;
-  stroke-width:2.5;
-}
-.contact-main{
-  font-size:18px;
-  font-weight:900;
-}
-.contact-sub{
-  font-size:13px;
-  color:#cbbad6;
-}
-.footer-line{
-  margin:24px 0;
-  border:0;
-  border-top:1px solid rgba(255,255,255,0.15);
-}
-.footer-copy{
-  font-size:13px;
-  color:#b9a8c0;
-}
+/* ================= FOOTER ================= */
+.zy-footer{background:#22182a;color:#fff;padding:40px 20px;font-family:'Noto Sans Sinhala',sans-serif;}
+.footer-wrap{max-width:900px;margin:auto;}
+.footer-contacts{display:flex;flex-wrap:wrap;gap:30px;}
+.contact-item{display:flex;align-items:center;gap:12px;min-width:220px;}
+.icon-green{stroke:#22c18a;fill:none;stroke-width:2.5;}
+.contact-main{font-size:18px;font-weight:900;}
+.contact-sub{font-size:13px;color:#cbbad6;}
+.footer-line{margin:24px 0;border:0;border-top:1px solid rgba(255,255,255,0.15);}
+.footer-copy{font-size:13px;color:#b9a8c0;}
 
 /* ================= MOBILE BAR ================= */
-.mobile-bar{
-  display:none;
-}
-@media (max-width:768px){
-  .mobile-bar{
-    display:block;
-    position:fixed;
-    bottom:0;
-    left:0;
-    width:100%;
-    background:#0a0a0d;
-    padding:14px;
-    border-top:1px solid #1a1a1a;
-    z-index:999;
-  }
+.mobile-bar{display:none;}
+@media(max-width:768px){
+  .mobile-bar{display:block;position:fixed;bottom:0;left:0;width:100%;background:#0a0a0d;padding:14px;border-top:1px solid #1a1a1a;z-index:999;}
   body{padding-bottom:90px;}
+  /* MOBILE FIXES */
+  .loan-steps,.app-features{padding:16px 12px;margin:16px auto;}
+  .loan-steps .step,.app-features .feature-list li{padding:12px 10px;gap:10px;}
+  .loan-steps .icon{font-size:22px;padding:6px;}
+  .loan-steps .text h3,.app-features .app-title{font-size:14px;}
+  .loan-steps .text p,.app-features .feature-list li{font-size:12px;}
+  .app-features .app-image img{border-radius:12px;}
+  .arrow{font-size:10px;padding:2px 6px;}
 }
-@media (min-width:769px){
-  .app{max-width:420px;margin:auto;}
-}
+@media(min-width:769px){.app{max-width:420px;margin:auto;}}
 </style>
 </head>
-
 <body>
 
 <div class="app">
@@ -322,8 +166,7 @@ input[type=range]::-webkit-slider-thumb{
   <button class="btn">Log in</button>
 </div>
 
-<!-- MAIN CARD -->
-<div class="section">
+<!-- CALCULATOR CARD -->
 <div class="card">
   <div class="headline">ක්ෂණික මුදල් රු. 500,000 දක්වා</div>
   <div class="sub">විනාඩි කිහිපයකින් මුදල් ලබාගන්න</div>
@@ -344,14 +187,10 @@ input[type=range]::-webkit-slider-thumb{
     <div class="result-box"><div class="r-label">සම්පූර්ණ</div><div class="r-value" id="totalPayable">0</div></div>
   </div>
 
-  <a href="https://forms.gle/3MZYPTzNFJw8UZTAA" target="_blank" class="apply-button">
-    අයදුම් කරන්න
-  </a>
-</div>
+  <a href="https://forms.gle/3MZYPTzNFJw8UZTAA" target="_blank" class="apply-button">අයදුම් කරන්න</a>
 </div>
 
-  
-<!-- ================= SECTION: LOAN STEPS ================= -->
+<!-- LOAN STEPS SECTION -->
 <section class="loan-steps">
   <div class="step">
     <div class="icon">☝️</div>
@@ -360,11 +199,7 @@ input[type=range]::-webkit-slider-thumb{
       <p>අවශ්‍ය ලියකියවිලි සම්පූර්ණ කරන්න</p>
     </div>
   </div>
-
-  <div class="divider">
-    <span class="arrow">⌄</span>
-  </div>
-
+  <div class="divider"><span class="arrow">⌄</span></div>
   <div class="step">
     <div class="icon">💰</div>
     <div class="text">
@@ -372,11 +207,7 @@ input[type=range]::-webkit-slider-thumb{
       <p>අයදුම්පත සම්පූර්ණ කළ පසු විනාඩි කිහිපයකින් ප්‍රතිඵල ලබා ගන්න</p>
     </div>
   </div>
-
-  <div class="divider">
-    <span class="arrow">⌄</span>
-  </div>
-
+  <div class="divider"><span class="arrow">⌄</span></div>
   <div class="step highlight">
     <div class="icon">💵</div>
     <div class="text">
@@ -386,21 +217,19 @@ input[type=range]::-webkit-slider-thumb{
   </div>
 </section>
 
-<!-- SECTION 02 -->
-<section class="section">
-  <div class="app-features">
-    <h2 class="app-title">ඇප් එකේ අතිරේක විශේෂාංග</h2>
-    <ul class="feature-list">
-      <li>✅ ඉල්ලීම සහ ගෙවීම පහසු ලෙස කරගත හැක</li>
-      <li>🎁 විශේෂ දීමනා සහ ප්‍රවර්ධන</li>
-      <li>🔥 වැඩි හොඳ කොන්දේසි</li>
-      <li>👍 අනුමත වීමේ හැකියාව වැඩි වේ</li>
-    </ul>
-    <div class="app-image">
-      <img src="https://i.ibb.co/S4z6jLqV/Whats-App-Image-2025-10-27-at-12-23-16-a07b1b8a.jpg" class="responsive-image">
-    </div>
-    <a href="https://forms.gle/axZ8a9Uje5NqNFmcA" target="_blank" class="google-btn">Google Play</a>
+<!-- APP FEATURES SECTION -->
+<section class="app-features">
+  <h2 class="app-title">ඇප් එකේ අතිරේක විශේෂාංග</h2>
+  <ul class="feature-list">
+    <li>✅ ඉල්ලීම සහ ගෙවීම පහසු ලෙස කරගත හැක</li>
+    <li>🎁 විශේෂ දීමනා සහ ප්‍රවර්ධන</li>
+    <li>🔥 වැඩි හොඳ කොන්දේසි</li>
+    <li>👍 අනුමත වීමේ හැකියාව වැඩි වේ</li>
+  </ul>
+  <div class="app-image">
+    <img src="https://i.ibb.co/S4z6jLqV/Whats-App-Image-2025-10-27-at-12-23-16-a07b1b8a.jpg" alt="App preview">
   </div>
+  <a href="https://forms.gle/axZ8a9Uje5NqNFmcA" target="_blank" class="google-btn">Google Play</a>
 </section>
 
 <!-- FOOTER -->
@@ -426,9 +255,7 @@ input[type=range]::-webkit-slider-thumb{
 
 <!-- MOBILE APPLY -->
 <div class="mobile-bar">
-  <a href="https://forms.gle/3MZYPTzNFJw8UZTAA" target="_blank" class="apply-button">
-    අයදුම් කරන්න
-  </a>
+  <a href="https://forms.gle/3MZYPTzNFJw8UZTAA" target="_blank" class="apply-button">අයදුම් කරන්න</a>
 </div>
 
 <script>
