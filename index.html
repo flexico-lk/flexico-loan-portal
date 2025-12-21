@@ -25,7 +25,7 @@ html,body{
   color:var(--text);
 }
 
-/* ===== APP WRAPPER ===== */
+/* ===== APP ===== */
 .app{
   max-width:420px;
   margin:auto;
@@ -42,12 +42,10 @@ html,body{
   position:sticky;
   top:0;
   background:var(--bg);
+  z-index:10;
 }
 
-.brand{
-  font-weight:900;
-  font-size:18px;
-}
+.brand{font-weight:900;font-size:18px}
 
 .btn{
   background:#1f1f1f;
@@ -57,7 +55,7 @@ html,body{
   border-radius:10px;
 }
 
-/* ===== MAIN CARD ===== */
+/* ===== CARD ===== */
 .card{
   background:var(--card);
   margin:14px;
@@ -119,7 +117,7 @@ input[type=range]::-webkit-slider-thumb{
   color:var(--muted);
 }
 
-/* ===== APPLY BUTTON ===== */
+/* ===== APPLY ===== */
 .apply-btn{
   display:block;
   text-align:center;
@@ -130,6 +128,11 @@ input[type=range]::-webkit-slider-thumb{
   color:#fff;
   text-decoration:none;
   font-weight:900;
+  transition:.3s;
+}
+
+.apply-btn:hover{
+  transform:translateY(-3px);
 }
 
 /* ===== STEPS ===== */
@@ -146,9 +149,7 @@ input[type=range]::-webkit-slider-thumb{
   padding:18px;
 }
 
-.icon{
-  font-size:26px;
-}
+.icon{font-size:26px}
 
 .step h3{
   margin:0;
@@ -218,7 +219,7 @@ footer small{
   font-size:12px;
 }
 
-/* ===== FLOATING BUTTONS ===== */
+/* ===== FLOATING ===== */
 .floating{
   position:fixed;
   right:16px;
@@ -239,10 +240,29 @@ footer small{
   color:#fff;
   text-decoration:none;
   box-shadow:0 6px 18px rgba(0,0,0,.3);
+  animation:pulse 2s infinite;
 }
 
 .call{background:var(--primary)}
 .whatsapp{background:#25D366}
+
+@keyframes pulse{
+  0%{transform:scale(1)}
+  50%{transform:scale(1.08)}
+  100%{transform:scale(1)}
+}
+
+/* ===== ANIMATION ===== */
+.fade-up{
+  opacity:0;
+  transform:translateY(20px);
+  transition:.6s ease;
+}
+
+.fade-up.show{
+  opacity:1;
+  transform:translateY(0);
+}
 
 @media(max-width:480px){
   body{padding-bottom:80px;}
@@ -261,7 +281,7 @@ footer small{
   <button class="btn">Log in</button>
 </div>
 
-<div class="card">
+<div class="card fade-up">
   <div class="headline">ක්ෂණික ණය රු. 500,000 දක්වා</div>
   <div class="sub">විනාඩි කිහිපයකින් මුදල් ලබාගන්න</div>
 
@@ -278,7 +298,7 @@ footer small{
   <a href="#" class="apply-btn">අයදුම් කරන්න</a>
 </div>
 
-<div class="steps">
+<div class="steps fade-up">
   <div class="step">
     <div class="icon">☝️</div>
     <div>
@@ -308,7 +328,7 @@ footer small{
   </div>
 </div>
 
-<footer>
+<footer class="fade-up">
   <div class="footer-item">
     <div class="footer-icon">📞</div>
     <div>
@@ -343,6 +363,14 @@ footer small{
 const r=document.getElementById("amountRange");
 const t=document.getElementById("amountText");
 r.oninput=()=>t.textContent=(+r.value).toLocaleString();
+
+const faders=document.querySelectorAll('.fade-up');
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){e.target.classList.add('show')}
+  });
+},{threshold:.2});
+faders.forEach(f=>observer.observe(f));
 </script>
 
 </body>
