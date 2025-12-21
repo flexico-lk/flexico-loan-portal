@@ -1,9 +1,10 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="si">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ZyCredit Landing Page</title>
+
+<title>ZyCredit</title>
 
 <style>
 :root{
@@ -12,17 +13,27 @@
   --bg:#0a0a0d;
   --card:#14141a;
 }
-*{box-sizing:border-box;}
-body{
+
+*{box-sizing:border-box}
+
+html,body{
   margin:0;
   padding:0;
-  font-family:'Noto Sans Sinhala',Arial,sans-serif;
+  font-family:"Segoe UI",Roboto,"Noto Sans Sinhala",Arial,sans-serif;
   background:var(--bg);
   color:#fff;
-  scroll-behavior: smooth;
 }
 
-/* ================= TOPBAR ================= */
+/* ================= APP ================= */
+.app{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  max-width:420px;
+  margin:auto;
+}
+
+/* ================= TOP BAR ================= */
 .topbar{
   display:flex;
   justify-content:space-between;
@@ -34,160 +45,281 @@ body{
   z-index:100;
   border-bottom:1px solid #1a1a1a;
 }
+
 .brand{
   display:flex;
   gap:10px;
   align-items:center;
 }
-.logo-img{width:42px;height:42px;border-radius:10px;}
-.brand-text{font-weight:900;font-size:16px;}
-.btn{
-  background:#1f1f1f;color:#fff;border:none;border-radius:10px;padding:10px 14px;
-  transition: all 0.3s ease;
+
+.logo-img{
+  width:42px;
+  height:42px;
+  border-radius:10px;
+  background:#333;
 }
-.btn:hover{transform:translateY(-2px);box-shadow:0 6px 15px rgba(0,0,0,0.2);}
+
+.brand-text{
+  font-weight:900;
+  font-size:16px;
+}
+
+.btn{
+  background:#1f1f1f;
+  color:#fff;
+  border:none;
+  border-radius:10px;
+  padding:10px 14px;
+}
 
 /* ================= CARD ================= */
 .card{
   background:var(--card);
   padding:20px 16px;
   border-radius:16px;
-  max-width:420px;
-  margin:20px auto;
-  transition: all 0.3s ease;
+  margin:12px;
 }
-.card:hover{transform:translateY(-3px);}
 
-.headline{text-align:center;font-size:22px;font-weight:900;}
-.sub{text-align:center;color:#bbb;font-size:14px;margin:8px 0 14px;}
+.headline{
+  text-align:center;
+  font-size:22px;
+  font-weight:900;
+}
+
+.sub{
+  text-align:center;
+  color:#bbb;
+  font-size:14px;
+  margin:8px 0 14px;
+}
+
 .hero{
   background:linear-gradient(135deg,var(--primary),var(--secondary));
-  padding:18px;border-radius:14px;text-align:center;font-weight:800;margin-bottom:16px;
+  padding:18px;
+  border-radius:14px;
+  text-align:center;
+  font-weight:800;
+  margin-bottom:16px;
 }
 
-.amount-display{display:flex;justify-content:space-between;font-weight:800;}
-input[type=range]{width:100%;height:10px;border-radius:10px;appearance:none;background:linear-gradient(135deg,var(--primary),var(--secondary));margin:14px 0;transition:background 0.3s ease;}
-input[type=range]::-webkit-slider-thumb{appearance:none;width:28px;height:28px;border-radius:50%;background:#fff;border:6px solid var(--secondary);transition: transform 0.2s ease;}
-input[type=range]:active::-webkit-slider-thumb{transform:scale(1.1);}
-
-.minmax{display:flex;justify-content:space-between;color:#aaa;font-size:13px;}
-.results{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px;}
-.result-box{background:#1a1a1a;border-radius:14px;padding:14px;transition:all 0.3s ease;}
-.result-box:hover{transform:translateY(-2px);}
-.r-label{font-size:12px;color:#aaa;}
-.r-value{font-weight:900;font-size:16px;}
-.apply-button, .google-btn{
-  display:block;text-align:center;padding:18px;margin-top:18px;border-radius:16px;background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;font-size:18px;font-weight:900;text-decoration:none;transition: all 0.3s ease;
+/* ================= RANGE ================= */
+.amount-display{
+  display:flex;
+  justify-content:space-between;
+  font-weight:800;
 }
-.apply-button:hover, .google-btn:hover{transform:translateY(-3px);box-shadow:0 6px 15px rgba(0,0,0,0.2);}
 
-/* ================= LOAN STEPS ================= */
-.loan-steps{
-  background:var(--card);
+input[type=range]{
+  width:100%;
+  height:10px;
+  border-radius:10px;
+  appearance:none;
+  background:linear-gradient(135deg,var(--primary),var(--secondary));
+  margin:14px 0;
+}
+
+input[type=range]::-webkit-slider-thumb{
+  appearance:none;
+  width:28px;
+  height:28px;
+  border-radius:50%;
+  background:#fff;
+  border:6px solid var(--secondary);
+}
+
+.minmax{
+  display:flex;
+  justify-content:space-between;
+  color:#aaa;
+  font-size:13px;
+}
+
+/* ================= RESULTS ================= */
+.results{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin-top:16px;
+}
+
+.result-box{
+  background:#1a1a1a;
+  border-radius:14px;
+  padding:14px;
+}
+
+.r-label{font-size:12px;color:#aaa}
+.r-value{font-weight:900;font-size:16px}
+
+/* ================= APPLY BUTTON ================= */
+.apply-button{
+  width:100%;
+  display:block;
+  text-align:center;
+  padding:18px;
+  margin-top:18px;
   border-radius:16px;
-  padding:28px 18px;
-  max-width:420px;
-  margin:20px auto;
+  background:linear-gradient(135deg,var(--primary),var(--secondary));
+  color:#fff;
+  font-size:18px;
+  font-weight:900;
+  text-decoration:none;
+  transition:.3s;
 }
-.loan-steps .step{
+
+.apply-button:hover{
+  transform:translateY(-3px);
+}
+
+/* ================= STEPS ================= */
+.steps{
+  background:#fff;
+  color:#000;
+  margin:12px;
+  border-radius:20px;
+  overflow:hidden;
+}
+
+.step{
   display:flex;
   gap:15px;
-  padding:18px;
-  align-items:flex-start;
-  border-radius:12px;
-  margin-bottom:16px;
-  background:#1a1a1a;
-  transition: all 0.3s ease;
-  opacity:0; transform:translateY(20px);
+  padding:22px;
 }
-.loan-steps .step.visible{opacity:1;transform:translateY(0);}
-.loan-steps .icon{
-  font-size:28px;
-  padding:10px;
-  border-radius:50%;
-  background:linear-gradient(135deg,#d81b7d,#8e1d6b);
-  color:#fff;
-  text-align:center;
-}
-.loan-steps .text h3{margin:0;font-size:16px;font-weight:900;color:#fff;}
-.loan-steps .text p{margin-top:6px;font-size:13px;color:#bbb;}
-.loan-steps .divider{position:relative;text-align:center;border-top:2px dashed #333;margin:-8px 0 16px;}
-.loan-steps .arrow{background:#d81b7d;color:#fff;padding:4px 8px;border-radius:50%;position:relative;top:-12px;font-size:12px;}
-.loan-steps .highlight{background:linear-gradient(135deg,#d81b7d,#8e1d6b);}
-.loan-steps .highlight .text h3,.loan-steps .highlight .text p,.loan-steps .highlight .icon{color:#fff;}
 
-/* ================= APP FEATURES ================= */
-.app-features{
-  background:var(--card);
-  border-radius:16px;
-  padding:28px 18px;
+.icon{
+  font-size:30px;
+  color:#1abc9c;
+}
+
+.step h3{margin:0;font-size:17px}
+.step p{margin-top:6px;font-size:14px;color:#777}
+
+.divider{
   text-align:center;
-  max-width:420px;
-  margin:20px auto;
-  opacity:0; transform:translateY(20px);
-  transition: all 0.6s ease-out;
+  border-top:2px dashed #ddd;
 }
-.app-features.visible{opacity:1;transform:translateY(0);}
-.app-title{font-size:20px;font-weight:900;margin-bottom:18px;}
-.feature-list{list-style:none;padding:0;margin:0 0 20px;text-align:left;}
-.feature-list li{
-  background:#1a1a1a;
-  padding:14px 16px;
-  border-radius:12px;
-  margin-bottom:10px;
-  font-size:14px;
-  font-weight:600;
+
+.arrow{
+  background:#1abc9c;
+  color:#fff;
+  padding:6px 10px;
+  border-radius:50%;
+  position:relative;
+  top:-14px;
+  font-size:12px;
 }
-.app-image img{width:100%;border-radius:16px;margin:18px 0;}
+
+.highlight{
+  background:#1abc9c;
+}
+
+.highlight h3,
+.highlight p,
+.highlight .icon{
+  color:#fff;
+}
 
 /* ================= FOOTER ================= */
-.zy-footer{background:#22182a;color:#fff;padding:40px 20px;font-family:'Noto Sans Sinhala',sans-serif;}
-.footer-wrap{max-width:900px;margin:auto;}
-.footer-contacts{display:flex;flex-wrap:wrap;gap:30px;}
-.contact-item{display:flex;align-items:center;gap:12px;min-width:220px;}
-.icon-green{stroke:#22c18a;fill:none;stroke-width:2.5;}
-.contact-main{font-size:18px;font-weight:900;}
-.contact-sub{font-size:13px;color:#cbbad6;}
-.footer-line{margin:24px 0;border:0;border-top:1px solid rgba(255,255,255,0.15);}
-.footer-copy{font-size:13px;color:#b9a8c0;}
-
-/* ================= MOBILE BAR ================= */
-.mobile-bar{display:none;}
-@media(max-width:768px){
-  .mobile-bar{display:block;position:fixed;bottom:0;left:0;width:100%;background:#0a0a0d;padding:14px;border-top:1px solid #1a1a1a;z-index:999;}
-  body{padding-bottom:90px;}
-  .loan-steps,.app-features{padding:16px 12px;margin:16px auto;}
-  .loan-steps .step,.app-features .feature-list li{padding:12px 10px;gap:10px;}
-  .loan-steps .icon{font-size:22px;padding:6px;}
-  .loan-steps .text h3,.app-features .app-title{font-size:14px;}
-  .loan-steps .text p,.app-features .feature-list li{font-size:12px;}
-  .app-features .app-image img{border-radius:12px;}
-  .arrow{font-size:10px;padding:2px 6px;}
+footer{
+  background:#243765;
+  padding:40px 20px;
+  margin-top:20px;
 }
-@media(min-width:769px){.app{max-width:420px;margin:auto;}}
+
+.footer-item{
+  display:flex;
+  gap:14px;
+  margin-bottom:20px;
+}
+
+.footer-icon{
+  width:40px;
+  height:40px;
+  background:#3b4f85;
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+footer small{color:#cfd6ff}
+
+footer hr{
+  border:none;
+  border-top:1px solid rgba(255,255,255,.2);
+  margin:25px 0;
+}
+
+.footer-links{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+.footer-links a{
+  color:#fff;
+  text-decoration:none;
+}
+
+/* ================= FLOATING ================= */
+.floating-contact{
+  position:fixed;
+  right:16px;
+  bottom:20px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  z-index:9999;
+}
+
+.float-btn{
+  width:56px;
+  height:56px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:24px;
+  color:#fff;
+  text-decoration:none;
+  box-shadow:0 6px 18px rgba(0,0,0,.3);
+  animation:pulse 2s infinite;
+}
+
+.float-btn.call{background:#f1b400}
+.float-btn.whatsapp{background:#25D366}
+
+@keyframes pulse{
+  0%{transform:scale(1)}
+  50%{transform:scale(1.08)}
+  100%{transform:scale(1)}
+}
+
+@media(max-width:480px){
+  body{padding-bottom:80px;}
+  .footer-links{grid-template-columns:1fr;}
+  .floating-contact{bottom:90px;}
+}
 </style>
 </head>
+
 <body>
 
 <div class="app">
 
-<!-- TOPBAR -->
 <div class="topbar">
   <div class="brand">
-    <img src="https://i.ibb.co/fVg6QDzQ/IMG-0452.png" class="logo-img">
-    <div>
-      <div class="brand-text">ZyCredit</div>
-      <div style="font-size:12px;color:#aaa">ඔබේ මුදල් සවන්ද</div>
-    </div>
+    <div class="logo-img"></div>
+    <div class="brand-text">ZyCredit</div>
   </div>
   <button class="btn">Log in</button>
 </div>
 
-<!-- CALCULATOR CARD -->
 <div class="card">
-  <div class="headline">ක්ෂණික මුදල් රු. 500,000 දක්වා</div>
+  <div class="headline">ක්ෂණික ණය රු. 500,000 දක්වා</div>
   <div class="sub">විනාඩි කිහිපයකින් මුදල් ලබාගන්න</div>
-  <div class="hero">ZyCredit — online loan</div>
+
+  <div class="hero">ZyCredit — Online Loan</div>
 
   <div class="amount-display">
     <span>ණය මුදල</span>
@@ -197,115 +329,78 @@ input[type=range]:active::-webkit-slider-thumb{transform:scale(1.1);}
   <input type="range" id="amountRange" min="30000" max="500000" step="10000" value="30000">
   <div class="minmax"><span>30,000</span><span>500,000</span></div>
 
-  <div class="results">
-    <div class="result-box"><div class="r-label">පොලී</div><div class="r-value">10%</div></div>
-    <div class="result-box"><div class="r-label">මාසික</div><div class="r-value" id="monthlyValue">0</div></div>
-    <div class="result-box"><div class="r-label">වාරික</div><div class="r-value" id="installmentsCount">-</div></div>
-    <div class="result-box"><div class="r-label">සම්පූර්ණ</div><div class="r-value" id="totalPayable">0</div></div>
-  </div>
-
-  <a href="https://forms.gle/3MZYPTzNFJw8UZTAA" target="_blank" class="apply-button">අයදුම් කරන්න</a>
+  <a href="#" class="apply-button">අයදුම් කරන්න</a>
 </div>
 
-<!-- LOAN STEPS SECTION -->
-<section class="loan-steps fade-in">
+<div class="steps">
   <div class="step">
     <div class="icon">☝️</div>
-    <div class="text">
-      <h3>ඔබගේ අයදුම්පත පුරවන්න</h3>
-      <p>අවශ්‍ය ලියකියවිලි සම්පූර්ණ කරන්න</p>
+    <div>
+      <h3>අයදුම්පත පුරවන්න</h3>
+      <p>ඔබගේ විස්තර ඇතුලත් කරන්න</p>
     </div>
   </div>
-  <div class="divider"><span class="arrow">⌄</span></div>
+
+  <div class="divider"><span class="arrow">⌄⌄</span></div>
+
   <div class="step">
     <div class="icon">💰</div>
-    <div class="text">
-      <h3>සමාලෝචන ප්‍රතිඵල බලා සිටින්න</h3>
-      <p>අයදුම්පත සම්පූර්ණ කළ පසු විනාඩි කිහිපයකින් ප්‍රතිඵල ලබා ගන්න</p>
+    <div>
+      <h3>සමාලෝචනය</h3>
+      <p>විනාඩි කිහිපයකින් ප්‍රතිචාර</p>
     </div>
   </div>
-  <div class="divider"><span class="arrow">⌄</span></div>
+
+  <div class="divider"><span class="arrow">⌄⌄</span></div>
+
   <div class="step highlight">
     <div class="icon">💵</div>
-    <div class="text">
+    <div>
       <h3>මුදල් ලබාගන්න</h3>
-      <p>ඔබේ බැංකු ගිණුමට මුදල් යවනවා</p>
+      <p>බැංකු ගිණුමට බැර වේ</p>
     </div>
   </div>
-</section>
+</div>
 
-<!-- APP FEATURES SECTION -->
-<section class="app-features fade-in">
-  <h2 class="app-title">ඇප් එකේ අතිරේක විශේෂාංග</h2>
-  <ul class="feature-list">
-    <li>✅ ඉල්ලීම සහ ගෙවීම පහසු ලෙස කරගත හැක</li>
-    <li>🎁 විශේෂ දීමනා සහ ප්‍රවර්ධන</li>
-    <li>🔥 වැඩි හොඳ කොන්දේසි</li>
-    <li>👍 අනුමත වීමේ හැකියාව වැඩි වේ</li>
-  </ul>
-  <div class="app-image">
-    <img src="<a href="https://ibb.co/JwZ1gWwS"><img src="https://i.ibb.co/rR9jNKRX/IMG-0259.png" alt="IMG-0259" border="0"></a>" alt="App preview">
-  </div>
-  <a href="https://forms.gle/axZ8a9Uje5NqNFmcA" target="_blank" class="google-btn">Google Play</a>
-</section>
-
-<!-- FOOTER -->
-<footer class="zy-footer">
-  <div class="footer-wrap">
-    <div class="footer-contacts">
-      <div class="contact-item">
-        <svg viewBox="0 0 24 24" width="26" height="26" class="icon-green">
-          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.86 19.86 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.86 19.86 0 0 1-3.07-8.63A2 2 0 0 1 4.08 2h3a2 2 0 0 1 2 1.72c.12 1.21.47 2.38 1.03 3.47a2 2 0 0 1-.45 2.11L9.91 11.09a16 16 0 0 0 6 6l1.78-1.78a2 2 0 0 1 2.11-.45c1.09.56 2.26.91 3.47 1.03A2 2 0 0 1 22 16.92z"/>
-        </svg>
-        <div>
-          <div class="contact-main">074 0436 005</div>
-          <div class="contact-sub">දුරකථන / Phone</div>
-        </div>
-      </div>
+<footer>
+  <div class="footer-item">
+    <div class="footer-icon">📞</div>
+    <div>
+      <strong>074 043 6005</strong><br>
+      <small>Seven days a week</small>
     </div>
-    <hr class="footer-line">
-    <p class="footer-copy">© 2024–2025 ZyCredit Pvt Ltd. All rights reserved.</p>
   </div>
+
+  <div class="footer-item">
+    <div class="footer-icon">✉️</div>
+    <div><strong>info@zycredit.lk</strong></div>
+  </div>
+
+  <hr>
+
+  <div class="footer-links">
+    <a href="#">How to apply</a>
+    <a href="#">Repay loan</a>
+    <a href="#">FAQ</a>
+    <a href="#">Contact</a>
+  </div>
+
+  <hr>
+
+  <small>© 2024–2025 ZyCredit Pvt Ltd</small>
 </footer>
 
 </div>
 
-<!-- MOBILE APPLY -->
-<div class="mobile-bar">
-  <a href="https://forms.gle/3MZYPTzNFJw8UZTAA" target="_blank" class="apply-button">අයදුම් කරන්න</a>
+<div class="floating-contact">
+  <a href="tel:0740436005" class="float-btn call">📞</a>
+  <a href="https://wa.me/94740436005" target="_blank" class="float-btn whatsapp">💬</a>
 </div>
 
 <script>
-// Calculator
 const r=document.getElementById("amountRange");
 const t=document.getElementById("amountText");
-const m=document.getElementById("monthlyValue");
-const tot=document.getElementById("totalPayable");
-const i=document.getElementById("installmentsCount");
-function calc(v){
-  let n=v<70000?4:v<120000?12:v<200000?16:24;
-  let total=v*1.10;
-  return{n,monthly:total/n,total};
-}
-function update(){
-  let v=+r.value;
-  t.textContent=v.toLocaleString();
-  let c=calc(v);
-  m.textContent="රු "+Math.round(c.monthly).toLocaleString();
-  tot.textContent="රු "+Math.round(c.total).toLocaleString();
-  i.textContent=c.n+" වාරික";
-}
-r.addEventListener("input",update);
-update();
-
-// Fade-in on scroll
-const faders = document.querySelectorAll('.fade-in .step, .fade-in');
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if(entry.isIntersecting){ entry.target.classList.add('visible'); }
-  });
-},{ threshold: 0.2 });
-faders.forEach(fader => observer.observe(fader));
+r.oninput=()=>t.textContent=(+r.value).toLocaleString();
 </script>
 
 </body>
