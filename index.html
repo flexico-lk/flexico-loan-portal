@@ -173,11 +173,13 @@ input[type="range"]::-webkit-slider-thumb{
       </div>
     </div>
   </div>
+
   <div class="scroll-container">
     <div class="card">
       <div class="headline">ක්ෂණික මුදල් රු. 500,000 දක්වා</div>
       <div class="sub">ඇප්ලයි කරන්න, විනාඩි කිහිපයකින් මුදල් ලබාගන්න.</div>
       <div class="hero">Zycredit — සරල හා වේගවත්</div>
+
       <div class="slider-row">
         <div class="amount-display">
           <div class="label">ණය මුදල</div>
@@ -186,13 +188,19 @@ input[type="range"]::-webkit-slider-thumb{
         <input id="amountRange" type="range" min="30000" max="500000" step="10000" value="30000"/>
         <div class="minmax"><span>රු 30,000</span><span>රු 500,000</span></div>
       </div>
+
       <div class="results">
         <div class="result-box"><div class="r-label">පොලී අනුපාතය (වාර්ෂික)</div><div class="r-value">7%</div></div>
         <div class="result-box"><div class="r-label">මාසික වාරිකය</div><div class="r-value" id="monthlyValue">රු 0</div></div>
         <div class="result-box"><div class="r-label">වාරික ගණන</div><div class="r-value" id="installmentsCount">-</div></div>
         <div class="result-box"><div class="r-label">සම්පූර්ණ ගෙවිය යුතු මුදල</div><div class="r-value" id="totalPayable">රු 0</div></div>
+        <div class="result-box full-row">
+          <div class="r-label">පලමු වාරිකය ගෙවිය යුතු දිනය</div>
+          <div class="r-value" id="firstDueDay">-</div>
+        </div>
       </div>
     </div>
+
     <div class="card">
       <div class="section-title">Zycredit ඔබට හොඳම තේරීමක් වන්නේ ඇයි?</div>
       <div class="info-card">
@@ -200,50 +208,61 @@ input[type="range"]::-webkit-slider-thumb{
         <div class="card"><h3>සරල කොන්දේසි</h3><p>7% පොලී අනුපාතය යටතේ 30,000 සිට 500,000 දක්වා මුදල් ලබාගන්න.</p></div>
       </div>
     </div>
+
     <div class="card">
       <div class="section-title">ණයක් ලබා ගැනීම පහසුයි!</div>
       <div class="step"><div class="step-number">1</div><div class="step-title">අයදුම්පත පුරවන්න</div><div class="step-desc">ඔබේ ඉල්ලීම යැවීම සඳහා අයදුම්පත පුරවන්න</div></div>
       <div class="step"><div class="step-number">2</div><div class="step-title">ඉක්මන් ප්‍රතිචාරය</div><div class="step-desc">තීරණ ගැනීම් සදහා විනාඩි 15 පමණ.</div></div>
       <div class="step"><div class="step-number">3</div><div class="step-title">මුදල් ලබාගන්න</div><div class="step-desc">මුදල ඔබගේ බැංකු ගිණුමට බැර කරනු ලැබේ.</div></div>
     </div>
+
     <div class="footer">
       <div class="contact">📞 0740436005</div>
       ©️ 2024 - 2025 Zycredit Pvt Ltd
     </div>
   </div>
+
   <button class="apply-btn" onclick="window.open('https://forms.gle/axZ8a9Uje5NqNFmcA','_blank')">අයදුම් කරන්න</button>
 </div>
 
 <script>
-const fmt = n=>n.toLocaleString('en-US');
+const fmt = n => n.toLocaleString('en-US');
 const amountRange = document.getElementById('amountRange');
 const amountText = document.getElementById('amountText');
 const monthlyValue = document.getElementById('monthlyValue');
 const totalPayable = document.getElementById('totalPayable');
 const installmentsCount = document.getElementById('installmentsCount');
+const firstDueDay = document.getElementById('firstDueDay');
 
 function calculate(amount){
-  const interestRate=0.07;
-  let n;
-  if(amount>=30000 && amount<70000) n=4;
-  else if(amount>=70000 && amount<120000) n=12;
-  else if(amount>=120000 && amount<200000) n=16;
-  else if(amount>=200000 && amount<=500000) n=24;
-  else n=12;
-  const total=amount+(amount*interestRate);
-  const monthly=total/n;
-  return {monthly,total,n};
+  const interestRate = 0.07;
+  let months;
+  if(amount >= 30000 && amount < 70000) months = 4;
+  else if(amount >= 70000 && amount < 120000) months = 12;
+  else if(amount >= 120000 && amount < 200000) months = 16;
+  else if(amount >= 200000 && amount <= 500000) months = 24;
+  else months = 12;
+
+  const total = amount + (amount * interestRate);
+  const monthly = total / months;
+  return {monthly, total, months};
 }
 
 function updateAll(){
-  const amt=Number(amountRange.value);
-  amountText.textContent=fmt(amt);
-  const {monthly,total,n}=calculate(amt);
-  monthlyValue.textContent='රු '+fmt(Math.round(monthly));
-  totalPayable.textContent='රු '+fmt(Math.round(total));
-  installmentsCount.textContent=n+' වාරික';
+  const amt = Number(amountRange.value);
+  amountText.textContent = fmt(amt);
+  const {monthly, total, months} = calculate(amt);
+  monthlyValue.textContent = 'රු ' + fmt(Math.round(monthly));
+  totalPayable.textContent = 'රු ' + fmt(Math.round(total));
+  installmentsCount.textContent = months + " වාරික";
+
+  // පලමු වාරිකය ගෙවිය යුතු දිනයේ "දින"
+  const today = new Date();
+  const dayOfMonth = today.getDate(); 
+  firstDueDay.textContent = dayOfMonth + " වනදා";
 }
-amountRange.addEventListener('input',updateAll);
+
+amountRange.addEventListener('input', updateAll);
 updateAll();
 </script>
 </body>
