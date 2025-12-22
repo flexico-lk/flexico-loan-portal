@@ -27,7 +27,7 @@ html,body{margin:0;padding:0;font-family:"Segoe UI", Roboto, "Noto Sans", Arial,
   border-radius:10px;
   margin-bottom:16px;
   display:flex;
-  justify-content:flex-start; /* left aligned */
+  justify-content:flex-start;
   align-items:center;
   text-align:left;
   padding:20px;
@@ -85,14 +85,6 @@ input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:28px;hei
         <input id="amountRange" type="range" min="30000" max="500000" step="10000" value="30000"/>
       </div>
 
-      <div class="slider-row">
-        <div class="amount-display">
-          <div class="label">වාරික ගණන (මාස)</div>
-          <div class="value"><span id="durationText">12</span> මාස</div>
-        </div>
-        <input id="durationRange" type="range" min="4" max="24" step="1" value="12"/>
-      </div>
-
       <div class="results">
         <div class="result-box">
           <div class="r-label">මුදල් ලබාගන්න දිනය</div>
@@ -132,9 +124,7 @@ input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:28px;hei
 <script>
 const fmt=n=>n.toLocaleString('en-US');
 const amountRange=document.getElementById('amountRange');
-const durationRange=document.getElementById('durationRange');
 const amountText=document.getElementById('amountText');
-const durationText=document.getElementById('durationText');
 const totalPayable=document.getElementById('totalPayable');
 const totalInterest=document.getElementById('totalInterest');
 const monthlyValue=document.getElementById('monthlyValue');
@@ -142,13 +132,21 @@ const firstDueDate=document.getElementById('firstDueDate');
 const lastDueDate=document.getElementById('lastDueDate');
 const applyDateEl=document.getElementById('applyDate');
 
-function calculate(amount, months){
-  // Interest scales with duration
-  const ratePerMonth=0.005; // 0.5% per month
+function getMonths(amount){
+  if(amount>=30000 && amount<70000) return 4;
+  else if(amount>=70000 && amount<120000) return 12;
+  else if(amount>=120000 && amount<200000) return 16;
+  else if(amount>=200000 && amount<=500000) return 24;
+  else return 12;
+}
+
+function calculate(amount){
+  const months = getMonths(amount);
+  const ratePerMonth=0.005;
   const totalInterestVal=Math.round(amount * ratePerMonth * months);
   const total=amount + totalInterestVal;
   const monthly=total/months;
-  return {monthly,total,totalInterestVal};
+  return {monthly,total,totalInterestVal,months};
 }
 
 function addMonthsKeepDay(date, months){
@@ -172,11 +170,9 @@ function animateValue(el,start,end,duration){
 
 function updateAll(){
   const amt=Number(amountRange.value);
-  const months=Number(durationRange.value);
   amountText.textContent=fmt(amt);
-  durationText.textContent=months;
 
-  const {monthly,total,totalInterestVal}=calculate(amt,months);
+  const {monthly,total,totalInterestVal,months}=calculate(amt);
 
   totalPayable.textContent='රු '+fmt(total);
   totalInterest.textContent='රු '+fmt(totalInterestVal);
@@ -193,7 +189,6 @@ function updateAll(){
 }
 
 amountRange.addEventListener('input',updateAll);
-durationRange.addEventListener('input',updateAll);
 updateAll();
 </script>
 </body>
