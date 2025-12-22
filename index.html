@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Zycredit App</title>
 <meta name="theme-color" content="#16c172">
-<link rel="manifest" href="manifest.json">
 
 <style>
 :root{
@@ -25,7 +24,22 @@ html,body{margin:0;padding:0;font-family:"Segoe UI", Roboto, "Noto Sans", Arial,
 .card{background:var(--card);border-radius:14px;padding:16px;margin-bottom:16px;box-shadow:0 6px 20px rgba(0,0,0,0.08);}
 .headline{font-size:20px;font-weight:800;text-align:center;margin-bottom:8px;}
 .sub{font-size:14px;color:var(--muted);text-align:center;margin-bottom:12px;}
-.hero{width:100%;border-radius:10px;margin-bottom:16px;display:flex;justify-content:center;align-items:center;padding:20px;font-weight:700;font-size:18px;color:#fff;text-align:center;background: linear-gradient(-45deg,#3fb88f,#1da36b,#16c172,#0aa764); background-size: 400% 400%; animation: gradientBG 15s ease infinite;}
+.hero{
+  width:100%;
+  border-radius:10px;
+  margin-bottom:16px;
+  display:flex;
+  justify-content:center; /* center horizontally */
+  align-items:center;     /* center vertically */
+  padding:20px;
+  font-weight:700;
+  font-size:18px;
+  color:#fff;
+  text-align:center;      /* center text */
+  background: linear-gradient(-45deg,#3fb88f,#1da36b,#16c172,#0aa764);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+}
 @keyframes gradientBG{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
 .slider-row{display:flex;flex-direction:column;gap:10px;}
 .amount-display{display:flex;justify-content:space-between;align-items:center;}
@@ -160,11 +174,6 @@ function updateAll(){
 
 amountRange.addEventListener('input',updateAll);
 updateAll();
-
-// Service worker registration for PWA
-if('serviceWorker' in navigator){
-  navigator.serviceWorker.register('sw.js').then(()=>console.log('SW registered'));
-}
 </script>
 </body>
 </html>
