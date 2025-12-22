@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Zycredit App</title>
+<title>Zycredit Advanced App</title>
 <style>
 :root{
   --green-start:#16c172;
@@ -27,9 +27,9 @@ html,body{margin:0;padding:0;font-family:"Segoe UI", Roboto, "Noto Sans", Arial,
   border-radius:10px;
   margin-bottom:16px;
   display:flex;
-  justify-content:center; /* horizontal center */
-  align-items:center;     /* vertical center */
-  text-align:center;      /* text center */
+  justify-content:flex-start; /* left aligned */
+  align-items:center;
+  text-align:left;
   padding:20px;
   font-weight:700;
   font-size:18px;
@@ -38,14 +38,18 @@ html,body{margin:0;padding:0;font-family:"Segoe UI", Roboto, "Noto Sans", Arial,
   background-size: 400% 400%;
   animation: gradientBG 15s ease infinite;
 }
-@keyframes gradientBG{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-.slider-row{display:flex;flex-direction:column;gap:10px;}
+@keyframes gradientBG{
+  0%{background-position:25% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:25% 50%}
+}
+.slider-row{display:flex;flex-direction:column;gap:10px;margin-top:10px;}
 .amount-display{display:flex;justify-content:space-between;align-items:center;}
 .amount-display .label{font-weight:700;font-size:16px;}
 .amount-display .value{font-weight:800;font-size:16px;}
 input[type="range"]{-webkit-appearance:none;width:100%;height:8px;border-radius:8px;background:linear-gradient(90deg,var(--green-start),var(--green-end));outline:none;transition: background 0.3s;}
 input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:28px;height:28px;border-radius:50%;background:#fff;border:6px solid #0aa764;box-shadow:0 4px 10px rgba(10,167,100,0.25);cursor:pointer;}
-.results{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px;}
+.results{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px;}
 .result-box{background:#f6f9f8;padding:10px;border-radius:10px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;box-shadow:0 4px 12px rgba(0,0,0,0.08);transition:0.3s;}
 .result-box .r-label{font-size:12px;color:var(--muted);margin-bottom:4px;}
 .result-box .r-value{font-size:16px;font-weight:800;color:#0b3a2d;}
@@ -81,6 +85,14 @@ input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:28px;hei
         <input id="amountRange" type="range" min="30000" max="500000" step="10000" value="30000"/>
       </div>
 
+      <div class="slider-row">
+        <div class="amount-display">
+          <div class="label">වාරික ගණන (මාස)</div>
+          <div class="value"><span id="durationText">12</span> මාස</div>
+        </div>
+        <input id="durationRange" type="range" min="4" max="24" step="1" value="12"/>
+      </div>
+
       <div class="results">
         <div class="result-box">
           <div class="r-label">මුදල් ලබාගන්න දිනය</div>
@@ -91,16 +103,20 @@ input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:28px;hei
           <div class="r-value" id="firstDueDate">-</div>
         </div>
         <div class="result-box">
+          <div class="r-label">අවසන් වාරික දිනය</div>
+          <div class="r-value" id="lastDueDate">-</div>
+        </div>
+        <div class="result-box">
           <div class="r-label">මාසික වාරිකය</div>
           <div class="r-value" id="monthlyValue">රු 0</div>
         </div>
         <div class="result-box">
-          <div class="r-label">වාරික ගණන</div>
-          <div class="r-value" id="installmentsCount">-</div>
-        </div>
-        <div class="result-box">
           <div class="r-label">සම්පූර්ණ ගෙවිය යුතු මුදල</div>
           <div class="r-value" id="totalPayable">රු 0</div>
+        </div>
+        <div class="result-box">
+          <div class="r-label">මුළු පොලිය</div>
+          <div class="r-value" id="totalInterest">රු 0</div>
         </div>
       </div>
     </div>
@@ -116,24 +132,23 @@ input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:28px;hei
 <script>
 const fmt=n=>n.toLocaleString('en-US');
 const amountRange=document.getElementById('amountRange');
+const durationRange=document.getElementById('durationRange');
 const amountText=document.getElementById('amountText');
+const durationText=document.getElementById('durationText');
 const totalPayable=document.getElementById('totalPayable');
-const installmentsCount=document.getElementById('installmentsCount');
+const totalInterest=document.getElementById('totalInterest');
 const monthlyValue=document.getElementById('monthlyValue');
 const firstDueDate=document.getElementById('firstDueDate');
+const lastDueDate=document.getElementById('lastDueDate');
 const applyDateEl=document.getElementById('applyDate');
 
-function calculate(amount){
-  const interestRate=0.07;
-  let months;
-  if(amount>=30000 && amount<70000) months=4;
-  else if(amount>=70000 && amount<120000) months=12;
-  else if(amount>=120000 && amount<200000) months=16;
-  else if(amount>=200000 && amount<=500000) months=24;
-  else months=12;
-  const total=amount + (amount*interestRate);
+function calculate(amount, months){
+  // Interest scales with duration
+  const ratePerMonth=0.005; // 0.5% per month
+  const totalInterestVal=Math.round(amount * ratePerMonth * months);
+  const total=amount + totalInterestVal;
   const monthly=total/months;
-  return {monthly,total,months};
+  return {monthly,total,totalInterestVal};
 }
 
 function addMonthsKeepDay(date, months){
@@ -157,10 +172,14 @@ function animateValue(el,start,end,duration){
 
 function updateAll(){
   const amt=Number(amountRange.value);
+  const months=Number(durationRange.value);
   amountText.textContent=fmt(amt);
-  const {monthly,total,months}=calculate(amt);
-  totalPayable.textContent='රු '+fmt(Math.round(total));
-  installmentsCount.textContent=months+' වාරික';
+  durationText.textContent=months;
+
+  const {monthly,total,totalInterestVal}=calculate(amt,months);
+
+  totalPayable.textContent='රු '+fmt(total);
+  totalInterest.textContent='රු '+fmt(totalInterestVal);
   animateValue(monthlyValue,parseInt(monthlyValue.textContent.replace(/\D/g,'')),monthly,500);
 
   const today=new Date();
@@ -168,9 +187,13 @@ function updateAll(){
 
   const firstDue=addMonthsKeepDay(today,1);
   firstDueDate.textContent=firstDue.toLocaleDateString('si-LK',{year:'numeric',month:'long',day:'numeric'});
+
+  const lastDue=addMonthsKeepDay(today,months);
+  lastDueDate.textContent=lastDue.toLocaleDateString('si-LK',{year:'numeric',month:'long',day:'numeric'});
 }
 
 amountRange.addEventListener('input',updateAll);
+durationRange.addEventListener('input',updateAll);
 updateAll();
 </script>
 </body>
